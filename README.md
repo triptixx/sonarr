@@ -18,7 +18,7 @@ docker run -d \
     --name=srvsonarr \
     --restart=unless-stopped \
     --hostname=srvsonarr \
-    -p 9117:9117 \
+    -p 8989:8989 \
     -v $PWD/config:/config \
     loxoo/sonarr
 ```
@@ -35,4 +35,4 @@ docker run -d \
 
 ## Network
 
-- `9117/tcp`      - WebUI.
+- `8989/tcp`      - WebUI.
