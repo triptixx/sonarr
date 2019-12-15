@@ -1,0 +1,35 @@
+name: docker build
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sonarr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone
+        uses: actions/checkout@master
+      - name: build
+        uses: triptixx/action-docker-build@master
+        with:
+          repo: sonarr-dev
+      - name: test
+        uses: triptixx/action-docker-test@master
+        with:
+          verbose: true
+          repo: sonarr-dev
+          run_args: -e API_KEY=gitaction
+          curl: :8989/api/system/status
+          curl_opts: --header x-api-key:gitaction
+          pipe: |
+            jq -r ".version" |
+            grep -qw "$(label org.label-schema.version)"
+      - name: publish
+        uses: triptixx/action-docker-publish@master
+        with:
+          docker_username: ${{ secrets.docker_username }}
+          docker_password: ${{ secrets.docker_password }}
+          from: sonarr-dev
+          repo: ${{ secrets.docker_username }}/sonarr
+          tags: latest,%label org.label-schema.version | %auto
