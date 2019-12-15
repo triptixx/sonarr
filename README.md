@@ -25,6 +25,12 @@ docker run -d \
 
 ## Environment
 
+- `$API_KEY`      - . _optional_
+- `$ANALYTICS`    - . _default: `false`_
+- `$BRANCH`       - . _default: `master`_
+- `$ENABLE_SSL`   - . _default: `false`_
+- `$LOG_LEVEL`    - . _default: `info`_
+- `$URL_BASE`     - . _optional_
 - `$SUID`         - User ID to run as. _default: `931`_
 - `$SGID`         - Group ID to run as. _default: `931`_
 - `$TZ`           - Timezone. _optional_
