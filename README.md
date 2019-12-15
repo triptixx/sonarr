@@ -25,12 +25,12 @@ docker run -d \
 
 ## Environment
 
-- `$API_KEY`      - . _optional_
-- `$ANALYTICS`    - . _default: `false`_
-- `$BRANCH`       - . _default: `master`_
-- `$ENABLE_SSL`   - . _default: `false`_
-- `$LOG_LEVEL`    - . _default: `info`_
-- `$URL_BASE`     - . _optional_
+- `$API_KEY`      - API Key authentication. _optional_
+- `$ANALYTICS`    - Enable send Anonymous Usage Data. _default: `false`_
+- `$BRANCH`       - Upstream tracking branch for updates. _default: `master`_
+- `$ENABLE_SSL`   - Enable SSL. _default: `false`_
+- `$LOG_LEVEL`    - Logging severity levels. _default: `info`_
+- `$URL_BASE`     - URL Base configuration. _optional_
 - `$SUID`         - User ID to run as. _default: `931`_
 - `$SGID`         - Group ID to run as. _default: `931`_
 - `$TZ`           - Timezone. _optional_
