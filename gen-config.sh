@@ -43,7 +43,6 @@ lower() { echo $1 | awk '{print tolower($0)}'; }
 camel() { echo $1 | awk '{print toupper(substr($1,1,1)) tolower(substr($1,2))}'; }
 
 # Create config.xml file and fill in some sane defaults (or fill existing empty file)
-
 if [ ! -f "$CONF_SONARR" ] || [ ! -s "$CONF_SONARR" ]; then
     (echo '<Config>'; echo '</Config>') > "$CONF_SONARR"
     setOpt AnalyticsEnabled False
