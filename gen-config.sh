@@ -1,27 +1,34 @@
 #!/bin/sh
-set -e
+set -eo pipefail
 
-CFG_FILE="$CFG_DIR/config.xml"
-CFG_FILE_BAK="$(mktemp -u "$CFG_FILE.bak.XXXXXX")"
+# ANSI colour escape sequences
+RED='\033[0;31m'
+RESET='\033[0m'
+error() { >&2 echo -e "${RED}Error: $@${RESET}"; exit 1; }
 
-if [ -f "$CFG_FILE" ]; then
+CONF_SONARR='/config/config.xml'
+CONF_SONARR_BAK="$(mktemp -u "$CONF_SONARR.bak.XXXXXX")"
+
+if [ -f "$CONF_SONARR" ]; then
     # Preserve old configuration, in case of ENOSPC or other errors
-    cp "$CFG_FILE" "$CFG_FILE_BAK" || (echo "Error: Could not backup config file" >&2; exit 99)
+    cp "$CONF_SONARR" "$CONF_SONARR_BAK" || error 'Could not backup config file'
 fi
 
 getOpt() {
-    xmlstarlet sel -t -c /Config/"$1" "$CFG_FILE"
+    xmlstarlet sel -t -c /Config/"$1" "$CONF_SONARR"
 }
+
 setOpt() {
     # If element exists
-    if xmlstarlet sel -Q -t -c "/Config/$1" "$CFG_FILE"; then
+    if xmlstarlet sel -Q -t -c "/Config/$1" "$CONF_SONARR"; then
         # Update the existing element
-        xmlstarlet ed -O -L -u "/Config/$1" -v "$2" "$CFG_FILE"
+        xmlstarlet ed -O -L -u "/Config/$1" -v "$2" "$CONF_SONARR"
     else
         # Insert a new sub-element
-        xmlstarlet ed -O -L -s /Config -t elem -n "$1" -v "$2" "$CFG_FILE"
+        xmlstarlet ed -O -L -s /Config -t elem -n "$1" -v "$2" "$CONF_SONARR"
     fi
 }
+
 bool() {
     local var="$(echo "$1" | tr 'A-Z' 'a-z')"
     case "$var" in
@@ -37,12 +44,8 @@ camel() { echo $1 | awk '{print toupper(substr($1,1,1)) tolower(substr($1,2))}';
 
 # Create config.xml file and fill in some sane defaults (or fill existing empty file)
 
-# NOTE: If these defaults need to be set differently,
-# please open an issue or pull request on the repo:
-#   https://github.com/Adam-Ant/docker-sonarr
-
-if [ ! -f "$CFG_FILE" ] || [ ! -s "$CFG_FILE" ]; then
-    (echo '<Config>'; echo '</Config>') > "$CFG_FILE"
+if [ ! -f "$CONF_SONARR" ] || [ ! -s "$CONF_SONARR" ]; then
+    (echo '<Config>'; echo '</Config>') > "$CONF_SONARR"
     setOpt AnalyticsEnabled False
     setOpt Branch 'master'
     setOpt BindAddress '*'
@@ -60,10 +63,9 @@ fi
 [ -n "$LOG_LEVEL" ] && setOpt LogLevel $(camel "${LOG_LEVEL:-info}")
 [ -n "$URL_BASE" ] && setOpt UrlBase "$URL_BASE"
 
-
 # Format the document pretty :)
-xmlstarlet fo "$CFG_FILE" >/dev/null
+xmlstarlet fo "$CONF_SONARR" >/dev/null
 
 # Finally, remove backup file after successfully creating new one
 # This is done to prevent trampling the config when the disk is full
-rm -f "$CFG_FILE_BAK"
+rm -f "$CONF_SONARR_BAK"
