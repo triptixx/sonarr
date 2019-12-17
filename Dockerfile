@@ -21,7 +21,7 @@ RUN chmod +x /output/usr/local/bin/*.sh
 FROM loxoo/mono-runtime:${MONO_TAG}
 
 ARG SONARR_VER
-ENV SUID=931 SGID=931
+ENV SUID=931 SGID=900
 
 LABEL org.label-schema.name="sonarr" \
       org.label-schema.description="A Docker image for the TV management software Sonarr" \
