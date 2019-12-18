@@ -5,19 +5,23 @@ set -eo pipefail
 RED='\033[0;31m'
 RESET='\033[0m'
 
-CONFIG_DIR='/config'
+CONFIG_DIR='/config;/media/tv;/media/anime/tv'
 
-if su-exec $SUID:$SGID [ ! -w "$CONFIG_DIR" ]; then
-    2>&1 echo -e "${RED}####################### WARNING #######################${RESET}"
-    2>&1 echo
-    2>&1 echo -e "${RED}     No permission to write in '$CONFIG_DIR' directory.${RESET}"
-    2>&1 echo -e "${RED}       Correcting permissions to prevent a crash.${RESET}"
-    2>&1 echo
-    2>&1 echo -e "${RED}#######################################################${RESET}"
-    2>&1 echo
+for DIR in `echo $CONFIG_DIR | tr ';' '\n'`; do
+    mkdir -p "$DIR"
 
-    chown $SUID:$SGID "$CONFIG_DIR"
-fi
+    if su-exec $SUID:$SGID [ ! -w "$DIR" ]; then
+        2>&1 echo -e "${RED}####################### WARNING #######################${RESET}"
+        2>&1 echo
+        2>&1 echo -e "${RED}     No permission to write in '$DIR' directory.${RESET}"
+        2>&1 echo -e "${RED}       Correcting permissions to prevent a crash.${RESET}"
+        2>&1 echo
+        2>&1 echo -e "${RED}#######################################################${RESET}"
+        2>&1 echo
+
+        chown $SUID:$SGID "$DIR"
+    fi
+done
 
 su-exec $SUID:$SGID sh <<EOF
 
