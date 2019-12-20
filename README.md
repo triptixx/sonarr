@@ -20,7 +20,6 @@ docker run -d \
     --hostname=srvsonarr \
     -p 8989:8989 \
     -v $PWD/config:/config \
-    -v $PWD/medias:/medias \
     -v $PWD/watchclient:/watch
     -v $PWD/downloadclient:/download \
     loxoo/sonarr
@@ -40,8 +39,9 @@ docker run -d \
 
 ## Volume
 
-- `/config`       - Server configuration file location.
-- `/medias`        - Location of Media library.
+- `/config`                - Server configuration file location.
+- `/download/media`        - It must be created in the download folder of the downloader client, \
+                             for sonarr hard links.
 
 ## Network
 
