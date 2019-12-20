@@ -32,7 +32,7 @@ COPY --from=builder /output/ /
 
 RUN apk add --no-cache sqlite-libs libmediainfo xmlstarlet
 
-VOLUME ["/config", "/medias"]
+VOLUME ["/config"]
 
 EXPOSE 8989/TCP
 

@@ -40,8 +40,7 @@ docker run -d \
 ## Volume
 
 - `/config`                - Server configuration file location.
-- `/download/media`        - It must be created in the download folder of the downloader client, \
-                             for sonarr hard links.
+- `/download/media`        - It must be created in the download folder of the downloader client, for sonarr hard links.
 
 ## Network
 
