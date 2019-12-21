@@ -1,8 +1,7 @@
-ARG ALPINE_TAG=3.10
 ARG MONO_TAG=5.20.1.19
 ARG SONARR_VER=3.0.3.668
 
-FROM loxoo/alpine:${ALPINE_TAG} AS builder
+FROM loxoo/mono-runtime:${MONO_TAG} AS builder
 
 ARG SONARR_VER
 
