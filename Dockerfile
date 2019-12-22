@@ -10,6 +10,7 @@ WORKDIR /output/sonarr
 RUN wget -O- https://download.sonarr.tv/v3/phantom-develop/${SONARR_VER}/Sonarr.phantom-develop.${SONARR_VER}.linux.tar.gz \
         | tar xz --strip-components=1; \
     find . -name '*.mdb' -delete; \
+    find ./UI -name '*.map' -delete; \
     rm -r Sonarr.Update
 
 COPY *.sh /output/usr/local/bin/
