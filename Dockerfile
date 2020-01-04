@@ -41,4 +41,4 @@ HEALTHCHECK --start-period=10s --timeout=5s \
             --header "x-api-key: $(xmlstarlet sel -t -v '/Config/ApiKey' /config/config.xml)"
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
-CMD ["mono", "/sonarr/Sonarr.exe", "--no-browser", "--data=/config"]
+CMD ["mono", "--debug", "/sonarr/Sonarr.exe", "--no-browser", "--data=/config"]
