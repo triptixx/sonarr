@@ -1,5 +1,5 @@
 ARG MONO_TAG=6.13.0
-ARG SONARR_VER=3.0.4.973
+ARG SONARR_VER=3.0.4.999
 
 FROM loxoo/mono-runtime:${MONO_TAG} AS builder
 
