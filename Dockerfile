@@ -16,7 +16,7 @@ RUN wget -O- https://download.sonarr.tv/v3/phantom-develop/${SONARR_VER}/Sonarr.
 COPY *.sh /output/usr/local/bin/
 RUN chmod +x /output/usr/local/bin/*.sh
 
-#=============================================================
+#==============================================================
 
 FROM loxoo/mono-runtime:${MONO_TAG}
 
