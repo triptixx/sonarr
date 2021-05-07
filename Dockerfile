@@ -1,5 +1,5 @@
-ARG MONO_TAG=6.12.0.126
-ARG SONARR_VER=3.0.4.1141
+ARG MONO_TAG=6.12.0.122
+ARG SONARR_VER=3.0.6.1196
 
 FROM loxoo/mono-runtime:${MONO_TAG} AS builder
 
@@ -7,7 +7,7 @@ ARG SONARR_VER
 
 ### install sonarr
 WORKDIR /output/sonarr
-RUN wget -O- https://download.sonarr.tv/v3/phantom-develop/${SONARR_VER}/Sonarr.phantom-develop.${SONARR_VER}.linux.tar.gz \
+RUN wget -O- https://download.sonarr.tv/v3/main/${SONARR_VER}/Sonarr.main.${SONARR_VER}.linux.tar.gz \
         | tar xz --strip-components=1; \
     find . -name '*.mdb' -delete; \
     find ./UI -name '*.map' -delete; \
