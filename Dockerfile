@@ -1,13 +1,13 @@
-ARG MONO_TAG=6.12.0.122
-ARG SONARR_VER=3.0.7.1477
+ARG ALPINE_TAG=3.18
+ARG SONARR_VER=4.0.0.700
 
-FROM loxoo/mono-runtime:${MONO_TAG} AS builder
+FROM loxoo/alpine:${ALPINE_TAG} AS builder
 
 ARG SONARR_VER
 
 ### install sonarr
 WORKDIR /output/sonarr
-RUN wget -O- https://download.sonarr.tv/v3/main/${SONARR_VER}/Sonarr.main.${SONARR_VER}.linux.tar.gz \
+RUN wget -O- https://download.sonarr.tv/v4/develop/${SONARR_VER}/Sonarr.develop.${SONARR_VER}.linux-musl-x64.tar.gz \
         | tar xz --strip-components=1; \
     find . -name '*.mdb' -delete; \
     find ./UI -name '*.map' -delete; \
@@ -18,7 +18,7 @@ RUN chmod +x /output/usr/local/bin/*.sh
 
 #==============================================================
 
-FROM loxoo/mono-runtime:${MONO_TAG}
+FROM loxoo/alpine:${ALPINE_TAG}
 
 ARG SONARR_VER
 ENV SUID=931 SGID=900
@@ -41,4 +41,4 @@ HEALTHCHECK --start-period=10s --timeout=5s \
             --header "x-api-key: $(xmlstarlet sel -t -v '/Config/ApiKey' /config/config.xml)"
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
-CMD ["mono", "--debug", "/sonarr/Sonarr.exe", "--no-browser", "--data=/config"]
+CMD ["/sonarr/Sonarr", "--no-browser", "--data=/config"]

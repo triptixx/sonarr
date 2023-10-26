@@ -1,15 +1,14 @@
 [hub]: https://hub.docker.com/r/loxoo/sonarr
-[mbdg]: https://microbadger.com/images/loxoo/sonarr
-[git]: https://github.com/triptixx/sonarr
-[actions]: https://github.com/triptixx/sonarr/actions
+[git]: https://github.com/triptixx/sonarr/tree/master
+[actions]: https://github.com/triptixx/sonarr/actions/workflows/main.yml
 
 # [loxoo/sonarr][hub]
-[![Layers](https://images.microbadger.com/badges/image/loxoo/sonarr.svg)][mbdg]
-[![Latest Version](https://images.microbadger.com/badges/version/loxoo/sonarr.svg)][hub]
-[![Git Commit](https://images.microbadger.com/badges/commit/loxoo/sonarr.svg)][git]
+[![Git Commit](https://img.shields.io/github/last-commit/triptixx/sonarr/master)][git]
+[![Build Status](https://github.com/triptixx/sonarr/actions/workflows/main.yml/badge.svg?branch=master)][actions]
+[![Latest Version](https://img.shields.io/docker/v/loxoo/sonarr/latest)][hub]
+[![Size](https://img.shields.io/docker/image-size/loxoo/sonarr/latest)][hub]
 [![Docker Stars](https://img.shields.io/docker/stars/loxoo/sonarr.svg)][hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/loxoo/sonarr.svg)][hub]
-[![Build Status](https://github.com/triptixx/sonarr/workflows/docker%20build/badge.svg)][actions]
 
 ## Usage
 
