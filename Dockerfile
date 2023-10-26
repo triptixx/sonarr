@@ -30,7 +30,7 @@ LABEL org.label-schema.name="sonarr" \
 
 COPY --from=builder /output/ /
 
-RUN apk add --no-cache libintl icu-libs sqlite-libs libmediainfo xmlstarlet
+RUN apk add --no-cache icu-libs sqlite-libs libmediainfo xmlstarlet
 
 VOLUME ["/config"]
 
