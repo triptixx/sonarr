@@ -1,5 +1,5 @@
-ARG ALPINE_TAG=3.18
-ARG SONARR_VER=4.0.0.700
+ARG ALPINE_TAG=3.20
+ARG SONARR_VER=4.0.8.1874
 
 FROM loxoo/alpine:${ALPINE_TAG} AS builder
 
@@ -7,7 +7,7 @@ ARG SONARR_VER
 
 ### install sonarr
 WORKDIR /output/sonarr
-RUN wget -O- https://download.sonarr.tv/v4/develop/${SONARR_VER}/Sonarr.develop.${SONARR_VER}.linux-musl-x64.tar.gz \
+RUN wget -O- https://github.com/Sonarr/Sonarr/releases/download/v${SONARR_VER}/Sonarr.main.${SONARR_VER}.linux-musl-x64.tar.gz \
         | tar xz --strip-components=1; \
     find . -name '*.mdb' -delete; \
     find ./UI -name '*.map' -delete; \
